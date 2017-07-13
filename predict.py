@@ -2,6 +2,20 @@ import tensorflow as tf
 import cx_Oracle
 tf.set_random_seed(777)  # for reproducibility
 
+conn = cx_Oracle.connect('pj2/pj2@192.168.9.17:1521/xe')
+cursor = conn.cursor()
+
+conn.close()
+
+cursor.execute('select * from sevenday')
+
+x = 0
+for result in cursor:
+    x += 1
+    if(x%9 == 0):
+        print(result)
+conn.commit()
+
 x_data = [[1, 2],
           [2, 3],
           [3, 1],
