@@ -5,15 +5,16 @@ tf.set_random_seed(777)  # for reproducibility
 conn = cx_Oracle.connect('pj2/pj2@192.168.9.17:1521/xe')
 cursor = conn.cursor()
 
-conn.close()
+cursor.execute('select stock_cd from company')
+companylist = []
+for result in cursor:
+    companylist.append(result[0])
 
-cursor.execute('select * from sevenday')
+#cursor.execute('select * from sevenday')
 
 x = 0
-for result in cursor:
-    x += 1
-    if(x%9 == 0):
-        print(result)
+for result in companylist:
+    print(result)
 conn.commit()
 
 x_data = [[1, 2],
